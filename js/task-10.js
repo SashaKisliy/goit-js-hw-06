@@ -13,44 +13,27 @@ const input = document.querySelector('input');
 console.log(input);
 
 
-
-
-
-// function createBoxes(amount) {
-//   const standartWidth = 20;
-//   const standartHeight = 20;
-//   let total = 0;
-//   for (let i = 0; i >= amount; i += 1) {
-    
-//       total += 10;
-//       const div = document.createElement('div');
-//       div.style.width = `${standartWidth + total}px`;
-//       div.style.height = `${standartHeight + total}px`;
-//       div.style.backgroundColor = getRandomHexColor();
-//       console.log(div)
-//       return boxes.append(div);
-//     }
-    
-//   }
+const onCreateButtonClick = () => {
+  const amount = input.value; 
+  return createBoxes(amount)
+}
 
 
 const createBoxes = (amount) => {
   let boxSize = 30;
-  let multiBox =`<div style="width:${boxSize}px; height:${boxSize}px"></div>`;
-  let str = ''
-  let total = 10;
-  for (let i = 0; i <= amount; i += 1) {
-    total += 10
-    str = `<div style="width:${(boxSize += total)}px; height:${boxSize}px; background:red"></div>`
+  let str = `<div style="width:${boxSize}px;background:${getRandomHexColor()}; height:${boxSize}px"></div>`;
+  let multiBox = "";
+
+  for (let i = 0; i < amount; i += 1) {
     multiBox += str;
+    str = `<div style="width:${(boxSize += 10)}px;background:${getRandomHexColor()}; height:${boxSize}px"></div>`;
   }
   boxes.insertAdjacentHTML("afterbegin", multiBox);
 };
-input.addEventListener('change', (event) => {
-  const getAmount = () => {
-    const amount = input.currentTarger.value;
-    return amount;
-  }
-})
 
-createButton.addEventListener('click', createBoxes)
+
+createButton.addEventListener('click', onCreateButtonClick);
+
+destroyButton.addEventListener('click', () => {
+  boxes.innerHTML = '';
+})
